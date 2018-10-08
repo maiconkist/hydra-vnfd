@@ -1,20 +1,28 @@
 vnfd:vnfd-catalog:
- vnfd:vnfd:
+ vnfd:
   -  id: hydra_aas_vnf
      name: hydra_aas_vnf 
      short-name: hydra_aas_vnf
-     logo: 5GinFIRE.png
+     description: HyDRA-AAS Server VNF
      vendor: 5GinFIRE
      version: '1.0'
-     description: HyDRA-AAS Server VNF
+     logo: 5GinFIRE.png
      connection-point:
      - name: hydra_aas_vnfd/cp0
        type: VPORT
      - name: hydra_aas_vnfd/cp1
        type: VPORT
      vdu:
-     - cloud-init-file: hydra_aas_cloud_init.cfg
+     - id: hydra_aas_vdu
+       name: hydra_aas_vdu
+       description: HyDRA-AAS VM
        count: '1'
+       cloud-init-file: hydra_aas_cloud_init.cfg
+       vm-flavor:
+         vcpu-count: '2'
+         memory-mb: '4096'
+         storage-gb: '10'
+       image: HYDRA-AAS
        external-interface:
        - name: eth0
          virtual-interface:
@@ -24,13 +32,6 @@ vnfd:vnfd-catalog:
          virtual-interface:
            type: VIRTIO
          vnfd-connection-point-ref: hydra_aas_vnfd/cp1
-       id: hydra_aas_vdu
-       image: hydra_aas_image
-       name: hydra_aas_vdu
-       vm-flavor:
-         memory-mb: '4096'
-         storage-gb: '10'
-         vcpu-count: '2'
      vnf-configuration:
        config-attributes:
          config-delay: 10

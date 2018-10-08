@@ -1,0 +1,8 @@
+start-hydra-aas:
+  description: Start HyDRA-AAS Server
+  params:
+    server-ip:
+      description: IP of the interface to expose the server.
+      type: string
+  required:
+  - server-ip

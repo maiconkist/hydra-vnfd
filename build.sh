@@ -2,21 +2,21 @@
 
 
 # ----- Build the NFD -------
-mkdir opencv_transcoder_vnf
-cp -r vnf/* opencv_transcoder_vnf
-#cp -r charms opencv_transcoder_vnf
-cd opencv_transcoder_vnf
-find * -type f -print | while read line; do md5sum $line >> checksums.txt; done
+mkdir hydra_aas_vnf
+cp -r vnf/* hydra_aas_vnf
+#cp -r charms hydra_aas_vnf
+cd hydra_aas_vnf
+find * -type f -print | while read line; do md5 $line >> checksums.txt; done
 cd ..
-tar -czvf opencv_transcoder_vnf.tar.gz opencv_transcoder_vnf
-rm -rf opencv_transcoder_vnf
+tar -czvf hydra_aas_vnf.tar.gz hydra_aas_vnf
+rm -rf hydra_aas_vnf
 
 
 # ----- Build the NSD -------
-#mkdir opencv_transcoder_ns
-#cp -r ns/* opencv_transcoder_ns
-#cd opencv_transcoder_ns
-#find * -type f -print | while read line; do md5sum $line >> checksums.txt; done
-#cd ..
-#tar -czvf opencv_transcoder_ns.tar.gz opencv_transcoder_ns
-#rm -rf opencv_transcoder_ns
+mkdir hydra_aas_ns
+cp -r ns/* hydra_aas_ns
+cd hydra_aas_ns
+find * -type f -print | while read line; do md5 $line >> checksums.txt; done
+cd ..
+tar -czvf hydra_aas_ns.tar.gz hydra_aas_ns
+rm -rf hydra_aas_ns

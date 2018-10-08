@@ -1,0 +1,13 @@
+name: hydra_aas
+summary: HyDRA-AAS charm
+maintainer: Maicon Ksit <kistm@tcd.ie>
+description: |
+  The HyDRA-AAS charm initializes the HyDRA-AAS server
+tags:
+  - misc
+  - osm
+  - vnf
+  - nfv
+series:
+  - trusty
+  - xenial
