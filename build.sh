@@ -1,5 +1,6 @@
 #!/bin/bash
 
+rm *.tar.gz
 
 # ----- Build the NFD -------
 mkdir hydra_aas_vnf
