@@ -1,0 +1,60 @@
+- hosts: hosts
+  remote_user: connect
+  tasks:
+    - name: Get source for omlGNURadio
+      git:
+        repo: 'https://github.com/maiconkist/gr-hydra.git'
+        dest: ~/gr-hydra
+        version: bleeding
+        update: true
+
+    - name: Make HyDRA Directory
+      file:
+        path: /home/ubuntu/gr-hydra/build
+        state: directory
+    - name: CMake HyDRA
+      command: cmake ../
+      args:
+        chdir: /home/ubuntu/gr-hydra/build
+    - make:
+        chdir: /home/ubuntu/gr-hydra/build
+    #- make:
+    #    chdir: /home/ubuntu/gr-hydra/build
+    #    target: install
+    #  become: yes
+
+    - name: Make GRC-HyDRA Directory
+      file:
+        path: /home/ubuntu/gr-hydra/grc_blocks/build
+        state: directory
+    - name: CMake HyDRA
+      command: cmake ../
+      args:
+        chdir: /home/ubuntu/gr-hydra/grc_blocks/build
+    - make:
+        chdir: /home/ubuntu/gr-hydra/grc_blocks/build
+    - make:
+        chdir: /home/ubuntu/gr-hydra/grc_blocks/build
+        target: install
+      become: yes
+
+    - name: Replace hydraServerIP by the correct address 
+      replace:
+        dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
+        regexp: 'hydraServerIP'
+        replace: '{{ hosts }}'
+
+    - name: Replace hydraClientIP by the correct address 
+      replace:
+        dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
+        regexp: 'hydraClientIP'
+        replace: '{{ hosts }}'
+
+    - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
+      file:
+        path: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
+        state: file
+        mode: a+x
+      
+    - name: Start ansible_hydra_gr_client_2tx_2rx.py script. Log to /tmp/
+      shell: nohup /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py >> /tmp/ansible_hydra_gr_client_2tx_2rx.log &
