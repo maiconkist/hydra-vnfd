@@ -1,13 +1,23 @@
-- hosts: hosts
-  remote_user: connect
+- hosts: 192.168.5.71
+  vars:
+    hydraServer: 666.666.666.666
+  remote_user: ubuntu
   tasks:
-    - name: Get source for omlGNURadio
+    - name: Get source for GR-Hydra
       git:
-        repo: 'https://github.com/maiconkist/gr-hydra.git'
-        dest: ~/gr-hydra
+        repo: "https://github.com/maiconkist/gr-hydra.git"
+        dest: /home/ubuntu/gr-hydra
         version: bleeding
         update: true
-
+    
+    - name: Install dependencies
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          libzmq3-dev
+      become: yes
+  
     - name: Make HyDRA Directory
       file:
         path: /home/ubuntu/gr-hydra/build
@@ -18,11 +28,11 @@
         chdir: /home/ubuntu/gr-hydra/build
     - make:
         chdir: /home/ubuntu/gr-hydra/build
-    #- make:
-    #    chdir: /home/ubuntu/gr-hydra/build
-    #    target: install
-    #  become: yes
-
+    - make:
+        chdir: /home/ubuntu/gr-hydra/build
+        target: install
+      become: yes
+  
     - name: Make GRC-HyDRA Directory
       file:
         path: /home/ubuntu/gr-hydra/grc_blocks/build
@@ -37,19 +47,18 @@
         chdir: /home/ubuntu/gr-hydra/grc_blocks/build
         target: install
       become: yes
-
+  
     - name: Replace hydraServerIP by the correct address 
       replace:
         dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
-        regexp: 'hydraServerIP'
-        replace: '{{ hosts }}'
-
+        regexp: "hydraServerIP"
+        replace: "{{ hydraServer }}"
+  
     - name: Replace hydraClientIP by the correct address 
       replace:
         dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
-        regexp: 'hydraClientIP'
-        replace: '{{ hosts }}'
-
+        regexp: "hydraClientIP"
+        replace: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
     - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
       file:
         path: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
