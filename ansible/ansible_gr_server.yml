@@ -52,7 +52,7 @@
       become: yes
 
 
-    - Name: Replace hydraServerIP by the correct address 
+    - name: Replace hydraServerIP by the correct address 
       replace:
         dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
         regexp: 'hydraServerIP'
@@ -65,4 +65,6 @@
         mode: a+x
 
     - name: Start ansible_hydra_gr_server.py script. Log to /tmp/
-      shell: nohup /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py >> /tmp/ansible_hydra_gr_server.log &
+      shell: nohup python /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py </dev/null > /tmp/ansible_gr_server.log 2>&1 &
+      #async: 600
+      #poll: 0
