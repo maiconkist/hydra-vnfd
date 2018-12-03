@@ -1,6 +1,4 @@
-- hosts: 192.168.5.54
-  vars:
-     hydraServer: 192.168.5.54
+- hosts: servers
   remote_user: ubuntu
   tasks:
     - name: Install dependencies
@@ -21,6 +19,7 @@
         dest: ~/gr-hydra
         version: bleeding
         update: true
+        force: yes
 
     - name: Make HyDRA Directory
       file:
@@ -57,7 +56,7 @@
       replace:
         dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
         regexp: 'hydraServerIP'
-        replace: '{{ hydraServer }}'
+        replace: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
     - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
       file:

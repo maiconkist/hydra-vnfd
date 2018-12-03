@@ -1,4 +1,4 @@
-- hosts: 192.168.5.71
+- hosts: transmitters
   vars:
     hydraServer: 192.168.5.54
   remote_user: ubuntu
@@ -21,6 +21,7 @@
         dest: /home/ubuntu/gr-hydra
         version: bleeding
         update: true
+        force: yes
     
     - name: Make HyDRA Directory
       file:
@@ -36,7 +37,7 @@
         chdir: /home/ubuntu/gr-hydra/build
         target: install
       become: yes
-  
+
     - name: Make GRC-HyDRA Directory
       file:
         path: /home/ubuntu/gr-hydra/grc_blocks/build
@@ -52,13 +53,13 @@
         target: install
       become: yes
   
-    - name: Replace hydraServerIP by the correct address 
+    - name: Replacing hydraServer IP
       replace:
         dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
         regexp: "hydraServerIP"
         replace: "{{ hydraServer }}"
   
-    - name: Replace hydraClientIP by the correct address 
+    - name: Replacing hydraClientIP
       replace:
         dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
         regexp: "hydraClientIP"

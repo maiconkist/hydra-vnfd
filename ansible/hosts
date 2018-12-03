@@ -1,0 +1,7 @@
+[servers]
+hydraServer ansible_host=192.168.5.54 ansible_user=ubuntu
+
+[transmitters]
+hydraClient1 ansible_host=192.168.5.71 ansible_user=ubuntu
+
+[receivers]
