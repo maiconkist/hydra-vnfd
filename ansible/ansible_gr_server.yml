@@ -1,8 +1,20 @@
-- hosts: '{{ hosts }}'
-  vars_files:
-    - secret
+- hosts: 192.168.5.54
+  vars:
+     hydraServer: 192.168.5.54
   remote_user: ubuntu
   tasks:
+    - name: Install dependencies
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - libzmq3-dev
+          - libfftw3-dev
+          - libopencv-dev
+          - gnuradio
+          - gnuradio-dev
+      become: yes
+
     - name: Get source for HyDRA
       git:
         repo: 'https://github.com/maiconkist/gr-hydra.git'
@@ -11,20 +23,24 @@
         update: true
 
     - name: Make HyDRA Directory
-      file: path= /home/ubuntu/gr-hydra/build state=directory
+      file:
+        path: /home/ubuntu/gr-hydra/build
+        state: directory
     - name: CMake HyDRA
       command: cmake ../
       args:
         chdir: /home/ubuntu/gr-hydra/build
     - make:
         chdir: /home/ubuntu/gr-hydra/build
-    #- make:
-    #    chdir: /home/ubuntu/gr-hydra/build
-    #    target: install
-    #  become: yes
-
+    - make:
+        chdir: /home/ubuntu/gr-hydra/build
+        target: install
+      become: yes
+  
     - name: Make GRC-HyDRA Directory
-      file: path= /home/ubuntu/gr-hydra/grc_blocks/build state=directory
+      file:
+        path: /home/ubuntu/gr-hydra/grc_blocks/build
+        state: directory
     - name: CMake HyDRA
       command: cmake ../
       args:
@@ -36,17 +52,18 @@
         target: install
       become: yes
 
+
     - Name: Replace hydraServerIP by the correct address 
       replace:
         dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
         regexp: 'hydraServerIP'
-        replace: '{{ hosts }}'
+        replace: '{{ hydraServer }}'
 
-    - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server_example.py
+    - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
       file:
-        path: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server_example.py
+        path: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
         state: file
         mode: a+x
 
     - name: Start ansible_hydra_gr_server_example.py script. Log to /tmp/
-      shell: nohup /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server_example.py >> /tmp/ansible_hydra_gr_server_example.log &
+      shell: nohup /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py >> /tmp/ansible_hydra_gr_server_example.log &

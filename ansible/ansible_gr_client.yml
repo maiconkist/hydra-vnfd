@@ -1,8 +1,20 @@
 - hosts: 192.168.5.71
   vars:
-    hydraServer: 666.666.666.666
+    hydraServer: 192.168.5.54
   remote_user: ubuntu
   tasks:
+    - name: Install dependencies
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - libzmq3-dev
+          - libfftw3-dev
+          - libopencv-dev
+          - gnuradio
+          - gnuradio-dev
+      become: yes
+
     - name: Get source for GR-Hydra
       git:
         repo: "https://github.com/maiconkist/gr-hydra.git"
@@ -10,14 +22,6 @@
         version: bleeding
         update: true
     
-    - name: Install dependencies
-      apt:
-        name: "{{ packages }}"
-      vars:
-        packages:
-          libzmq3-dev
-      become: yes
-  
     - name: Make HyDRA Directory
       file:
         path: /home/ubuntu/gr-hydra/build
@@ -59,6 +63,7 @@
         dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
         regexp: "hydraClientIP"
         replace: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+
     - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
       file:
         path: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
