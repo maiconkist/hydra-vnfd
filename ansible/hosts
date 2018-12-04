@@ -4,5 +4,8 @@ hydraServer ansible_host=192.168.5.54 ansible_user=ubuntu
 [transmitters]
 tx1 ansible_host=192.168.5.54 ansible_user=ubuntu
 
-[receivers]
-rx1 ansible_host=192.168.5.71 ansible_user=ubuntu
+[rx1]
+1 ansible_host=192.168.5.71 ansible_user=ubuntu
+
+[rx2]
+2 ansible_host=192.168.5.71 ansible_user=ubuntu

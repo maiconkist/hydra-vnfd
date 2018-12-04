@@ -1,4 +1,6 @@
-- hosts: servers
+- hosts: transmitters
+  vars:
+    hydraServer: 192.168.5.54
   remote_user: ubuntu
   tasks:
 # All updates disabled by default. Uncomment all the lines below to have update version of dependencies and HyDRA
@@ -14,10 +16,10 @@
 #         - gnuradio-dev
 #     become: yes
 
-#   - name: Get source for HyDRA
+#   - name: Get source for GR-Hydra
 #     git:
-#       repo: 'https://github.com/maiconkist/gr-hydra.git'
-#       dest: ~/gr-hydra
+#       repo: "https://github.com/maiconkist/gr-hydra.git"
+#       dest: /home/ubuntu/gr-hydra
 #       version: bleeding
 #       update: true
 #       force: yes
@@ -51,18 +53,24 @@
 #       chdir: /home/ubuntu/gr-hydra/grc_blocks/build
 #       target: install
 #     become: yes
-
-    - name: Replace hydraServerIP by the correct address 
+  
+    - name: Replacing hydraServer IP
       replace:
-        dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
-        regexp: 'hydraServerIP'
+        dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
+        regexp: "hydraServerIP"
+        replace: "{{ hydraServer }}"
+  
+    - name: Replacing hydraClientIP
+      replace:
+        dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
+        regexp: "hydraClientIP"
         replace: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
-    - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
+    - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
       file:
-        path: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
+        path: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
         state: file
         mode: a+x
-
-    - name: Start ansible_hydra_gr_server.py script. Log to /tmp/
-      shell: "(nohup python /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py </dev/null > /tmp/ansible_hydra_gr_server.log 2>&1 &)"
+      
+    - name: Start ansible_hydra_gr_client_2tx_2rx.py script. Log to /tmp/
+      shell: "(nohup python /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py </dev/null > /tmp/ansible_hydra_gr_client_2tx_2rx.log 2>&1 &)"
