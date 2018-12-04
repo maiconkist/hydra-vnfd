@@ -50,12 +50,11 @@
         target: install
       become: yes
   
-    - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_vr1_rx.py
+    - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_vr1_rx.py
       file:
-        path: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_vr1_rx.py
+        path: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_vr1_rx.py
         state: file
         mode: a+x
       
     - name: Start ansible_vr1_rx.py script. Log to /tmp/
-      shell: nohup /home/ubuntu/gr-hydra/grc_blocks/app/ansible_vr1_rx.py >> /tmp/ansible_hydra_vr1_rx.log &
       shell: "(nohup python /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_vr1_rx.py </dev/null > /tmp/ansible_hydra_vr1_rx.log 2>&1 &)"
