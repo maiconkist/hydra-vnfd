@@ -20,7 +20,7 @@
         version: bleeding
         update: true
         force: yes
-
+    
     - name: Make HyDRA Directory
       file:
         path: /home/ubuntu/gr-hydra/build
@@ -35,7 +35,7 @@
         chdir: /home/ubuntu/gr-hydra/build
         target: install
       become: yes
-  
+    
     - name: Make GRC-HyDRA Directory
       file:
         path: /home/ubuntu/gr-hydra/grc_blocks/build
@@ -51,7 +51,6 @@
         target: install
       become: yes
 
-
     - name: Replace hydraServerIP by the correct address 
       replace:
         dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
@@ -65,6 +64,4 @@
         mode: a+x
 
     - name: Start ansible_hydra_gr_server.py script. Log to /tmp/
-      shell: nohup python /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py </dev/null > /tmp/ansible_gr_server.log 2>&1 &
-      #async: 600
-      #poll: 0
+      shell: "(nohup python /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py </dev/null > /tmp/ansible_hydra_gr_server.log 2>&1 &)"
