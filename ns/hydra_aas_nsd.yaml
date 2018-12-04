@@ -19,26 +19,72 @@ nsd:nsd-catalog:
             vnfd-id-ref: hydra_aas_vnfd
         -   member-vnf-index: 2
             vnfd-id-ref: hydra_aas_vnfd
+        -   member-vnf-index: 3
+            vnfd-id-ref: hydra_aas_vnfd
 
         vld:
         # Networks for the VNFs
-        -   id: hydra_aas_nsd_vld1
-            name: hydra_aas_nsd_vld1
-            short-name: hydra_aas_nsd_vld1
-            type: ELAN
-            mgmt-network: 'true'
-            # vim-network-name: <update>
-            # provider-network:
-            #     overlay-type: VLAN
-            #     segmentation_id: <update>
-            vnfd-connection-point-ref:
-            # Specify the constituent VNFs
-            # member-vnf-index-ref - entry from constituent vnf
-            # vnfd-id-ref - VNFD id
-            # vnfd-connection-point-ref - connection point name in the VNFD
-            -   member-vnf-index-ref: 1
-                vnfd-id-ref: hydra_aas_vnfd
-                vnfd-connection-point-ref: eth0
-            -   member-vnf-index-ref: 2
-                vnfd-id-ref: hydra_aas_vnfd
-                vnfd-connection-point-ref: eth0
+        - id: hydra_sriov_nsd_vld1
+          mgmt-network: 'true'
+          name: hydra_sriov_nsd_vld1
+          short-name: hydra_sriov_nsd_vld1
+          type: ELAN
+          vim-network-name: provider    # Connect to the provider network
+          vnfd-connection-point-ref:
+          - member-vnf-index-ref: 1
+            vnfd-connection-point-ref: ens1
+            vnfd-id-ref: hydra_sriov_vnfd
+          - member-vnf-index-ref: 2
+            vnfd-connection-point-ref: ens1
+            vnfd-id-ref: hydra_sriov_vnfd
+          - member-vnf-index-ref: 3
+            vnfd-connection-point-ref: ens1
+            vnfd-id-ref: hydra_sriov_vnfd
+
+        - id: hydra_sriov_nsd_vld2
+          name: hydra_sriov_nsd_vld2
+          short-name: hydra_sriov_nsd_vld2
+          type: ELAN
+          vim-network-name: sriovnet      # Connect to the sriovnet network
+          vnfd-connection-point-ref:
+          - member-vnf-index-ref: 1
+            vnfd-connection-point-ref: ens7
+            vnfd-id-ref: hydra_sriov_vnfd
+          - member-vnf-index-ref: 2
+            vnfd-connection-point-ref: ens7
+            vnfd-id-ref: hydra_sriov_vnfd
+          - member-vnf-index-ref: 3
+            vnfd-connection-point-ref: ens7
+            vnfd-id-ref: hydra_sriov_vnfd
+
+        - id: hydra_sriov_nsd_vld3
+          name: hydra_sriov_nsd_vld3
+          short-name: hydra_sriov_nsd_vld3
+          type: ELAN
+          vim-network-name: provider2
+          vnfd-connection-point-ref:
+          - member-vnf-index-ref: 1
+            vnfd-connection-point-ref: ens5
+            vnfd-id-ref: hydra_sriov_vnfd
+          - member-vnf-index-ref: 2
+            vnfd-connection-point-ref: ens5
+            vnfd-id-ref: hydra_sriov_vnfd
+          - member-vnf-index-ref: 3
+            vnfd-connection-point-ref: ens5
+            vnfd-id-ref: hydra_sriov_vnfd
+
+        - id: hydra_sriov_nsd_vld4
+          name: hydra_sriov_nsd_vld4
+          short-name: hydra_sriov_nsd_vld4
+          type: ELAN
+          vim-network-name: iris2        # Connect to the iris2 (internal # testbed) network
+          vnfd-connection-point-ref:
+          - member-vnf-index-ref: 1
+            vnfd-connection-point-ref: ens4
+            vnfd-id-ref: hydra_sriov_vnfd
+          - member-vnf-index-ref: 2
+            vnfd-connection-point-ref: ens4
+            vnfd-id-ref: hydra_sriov_vnfd
+          - member-vnf-index-ref: 3
+            vnfd-connection-point-ref: ens4
+            vnfd-id-ref: hydra_sriov_vnfd
