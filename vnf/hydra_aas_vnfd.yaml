@@ -1,8 +1,8 @@
-nfd:vnfd-catalog:
+vnfd-catalog:
   vnfd:
   - id: hydra_aas_vnfd
-    name: hydra_aas_vnf
-    short-name: hydra_aas_vnf
+    name: hydra_aas_vnfd
+    short-name: hydra_aas_vnfd
     description: HyDRA-AAS VNF
 
     vendor: 5GINFIRE
@@ -29,9 +29,9 @@ nfd:vnfd-catalog:
     vdu:
     - id: hydra_aas_vnfd-VM
       name: hydra_aas_vnfd-VM
-      description: hydra_aas_vnfd-VM
+      description: HYDRA VM.
       # Image/checksum or image including the full path
-      image: HyDRA-AAS
+      image: hydra-aas
       count: 1
       guest-epa:
         cpu-pinning-policy: DEDICATED
@@ -45,9 +45,9 @@ nfd:vnfd-catalog:
       # Flavour of the VM to be instantiated for the VDU
       # flavor below can fit into m1.micro
       vm-flavor:
-        vcpu-count: 1
-        memory-mb: 2048
+        memory-mb: 4096
         storage-gb: 20
+        vcpu-count: 1
       interface:
       - external-connection-point-ref: ens1
         name: ens1
