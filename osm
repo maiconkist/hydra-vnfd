@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 case "$1" in
    "install")
       osm nsd-delete hydra_aas_nsd
@@ -16,11 +18,9 @@ case "$1" in
       osm vnfd-delete hydra_aas_vnfd
    ;;
    "ns-create")
-      osm ns-create --ns_name test --nsd_name hydra_aas_nsd --vim_account wins_5g --ssh_keys teste
+      osm ns-create --ns_name test --nsd_name hydra_aas_nsd --vim_account wins_5g
    ;;
    "ns-delete")
       osm ns-delete test
    ;;
 esac
-
-
