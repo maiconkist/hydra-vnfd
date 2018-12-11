@@ -79,3 +79,42 @@ vnfd-catalog:
         type: EXTERNAL
         virtual-interface:
           type: SR-IOV
+
+    # Uncomment and update below to enable juju
+    # charm configuration for the VNF
+    vnf-configuration:
+        juju:
+            charm: ansible-charm-v2
+        service-primitive:
+        -   name: config
+            parameter:
+            -   name: ssh-hostname
+                data-type: STRING
+                mandatory: false
+                default-value: <rw_mgmt_ip>
+            -   name: ssh-username
+                data-type: STRING
+                mandatory: false
+                default-value: ubuntu
+            -   name: ssh-password
+                data-type: STRING
+                mandatory: false
+                default-value: ubuntu
+            -   name: ssh-private-key
+                data-type: STRING
+                mandatory: false
+        -   name: ansible-playbook
+        initial-config-primitive:
+        -   name: config
+            parameter:
+            -   name: ssh-hostname
+                value: <rw_mgmt_ip>
+            -   name: ssh-username
+                value: ubuntu
+            -   name: ssh-password
+                value: ubuntu
+            seq: '1'
+        #-   name: start
+        #    seq: '2'
+        #-   name: ansible-playbook
+        #    seq: '2'
