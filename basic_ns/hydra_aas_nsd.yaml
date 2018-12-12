@@ -13,11 +13,11 @@ nsd-catalog:
     # Specify the VNFDs that are part of this NSD
     constituent-vnfd:
     - member-vnf-index: 1
-      vnfd-id-ref: hydra_aas_vnfd
+      vnfd-id-ref: hydra_aas_server
     - member-vnf-index: 2
-      vnfd-id-ref: hydra_aas_vnfd
+      vnfd-id-ref: hydra_aas_server
     - member-vnf-index: 3
-      vnfd-id-ref: hydra_aas_vnfd
+      vnfd-id-ref: hydra_aas_server
 
     vld:
     - id: hydra_aas_nsd_vld1

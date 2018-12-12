@@ -40,11 +40,11 @@ cd ..
 tar -czvf hydra_rx1_vnf.tar.gz tmp_vnfd
 rm -rf tmp_vnfd
 
-# ----- Build the NSD -------
-mkdir hydra_aas_ns
-cp -r ns/* hydra_aas_ns
-cd hydra_aas_ns
+# ----- Build the BASIC NS -------
+mkdir tmp_ns
+cp -r basic_ns/* tmp_ns
+cd tmp_ns
 find * -type f -print | while read line; do md5 $line >> checksums.txt; done
 cd ..
-tar -czvf hydra_aas_ns.tar.gz hydra_aas_ns
-rm -rf hydra_aas_ns
+tar -czvf hydra_aas_ns.tar.gz tmp_ns
+rm -rf tmp_ns
