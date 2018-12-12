@@ -1,8 +1,8 @@
 nsd-catalog:
   nsd:
-  - id: hydra_aas_nsd
-    name: hydra_aas_nsd
-    short-name: hydra_aas_nsd
+  - id: basic_nsd
+    name: basic_nsd
+    short-name: basic_nsd
     description: HyDRA AAS Example
     vendor: 5GINFIRE
     version: '1.0'
