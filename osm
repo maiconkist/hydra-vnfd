@@ -18,6 +18,7 @@ case "$1" in
       osm vnfd-delete hydra_aas_server
    ;;
    "ns-create")
+      ./osm install
       osm ns-create --ns_name basic --nsd_name basic_nsd --vim_account wins_5g_v2
    ;;
    "ns-delete")
