@@ -1,9 +1,9 @@
 vnfd-catalog:
   vnfd:
-  - id: hydra_aas_server
-    name: hydra_aas_server
-    short-name: hydra_aas_server
-    description: HyDRA-AAS VNF Server
+  - id: rx1
+    name: rx1
+    short-name: rx1
+    description: RX for VR1
 
     vendor: 5GINFIRE
     version: '1.0'
@@ -27,9 +27,9 @@ vnfd-catalog:
 
     # Atleast one VDU need to be specified
     vdu:
-    - id: hydra_aas_server-VM
-      name: hydra_aas_server-VM
-      description: HYDRA-AAS Server VM.
+    - id: rx1-VM
+      name: rx1-VM
+      description: RX1 VM.
       # Image/checksum or image including the full path
       image: hydra-aas-v2
       count: 1
@@ -79,7 +79,6 @@ vnfd-catalog:
         type: EXTERNAL
         virtual-interface:
           type: SR-IOV
-
 
     vnf-configuration:
         juju:

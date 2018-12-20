@@ -1,9 +1,9 @@
 vnfd-catalog:
   vnfd:
-  - id: hydra_aas_server
-    name: hydra_aas_server
-    short-name: hydra_aas_server
-    description: HyDRA-AAS VNF Server
+  - id: hydra_aas_client_2tx_2rx
+    name: hydra_aas_client_2tx_2rx
+    short-name: hydra_aas_client_2tx_2rx
+    description: HyDRA-AAS Client with 2TXs and 2RXs
 
     vendor: 5GINFIRE
     version: '1.0'
@@ -27,9 +27,9 @@ vnfd-catalog:
 
     # Atleast one VDU need to be specified
     vdu:
-    - id: hydra_aas_server-VM
-      name: hydra_aas_server-VM
-      description: HYDRA-AAS Server VM.
+    - id: hydra_aas_client_2tx_2rx-VM
+      name: hydra_aas_client_2tx_2rx-VM
+      description: HYDRA VM.
       # Image/checksum or image including the full path
       image: hydra-aas-v2
       count: 1
@@ -80,7 +80,8 @@ vnfd-catalog:
         virtual-interface:
           type: SR-IOV
 
-
+    # Uncomment and update below to enable juju
+    # charm configuration for the VNF
     vnf-configuration:
         juju:
             charm: ansible-charm
