@@ -3,43 +3,39 @@
 rm *.tar.gz
 rm -rf tmp_vnfd
 
-# ----- Build the HYDRA-AAS NFD -------
-#mkdir tmp_vnfd
-#cp -r hydra_aas_vnfd/* tmp_vnfd
-#cd tmp_vnfd
-#find * -type f -print | while read line; do md5 $line >> checksums.txt; done
-#cd ..
-#tar -czvf hydra_aas_vnf.tar.gz tmp_vnfd
-#rm -rf tmp_vnfd
+build_vnfd () {
 
-echo "----- Build the Server NFD -------"
-mkdir tmp_vnfd
-cp -r hydra_server/vnfd/* tmp_vnfd
-cd tmp_vnfd
+# Generate compiled charm
+pushd $1/charms/ansible-charm
+rm -rf builds/ deps/
+charm build
+popd
+
+# Copy compiled charm to vnfd/charms
+cp -R $1/charms/ansible-charm/builds/ansible-charm $1/vnfd/charms/
+
+# generate tar.gz
+mkdir tmp_$1
+cp -r $1/vnfd/* tmp_$1
+cd tmp_$1
 find * -type f -print | while read line; do md5sum $line >> checksums.txt; done
 cd ..
-tar -czvf hydra_server_vnf.tar.gz tmp_vnfd
-rm -rf tmp_vnfd
+tar -czvf $1_vnf.tar.gz tmp_$1
+rm -rf tmp_$1
+}
 
-## ----- Build the client NFD -------
-#mkdir tmp_vnfd
-#cp -r hydra_client_2tx_2rx_vnfd/* tmp_vnfd
-#cd tmp_vnfd
-#find * -type f -print | while read line; do md5sum $line >> checksums.txt; done
-#cd ..
-#tar -czvf hydra_client_2tx_2rx_vnf.tar.gz tmp_vnfd
-#rm -rf tmp_vnfd
-#
-#
-## ----- Build the RX1 NFD -------
-#mkdir tmp_vnfd
-#cp -r hydra_rx1_vnfd/* tmp_vnfd
-#cd tmp_vnfd
-#find * -type f -print | while read line; do md5sum $line >> checksums.txt; done
-#cd ..
-#tar -czvf hydra_rx1_vnf.tar.gz tmp_vnfd
-#rm -rf tmp_vnfd
-#
+echo "----- Build the Server NFD -------"
+build_vnfd hydra_server
+
+echo "----- Build the client NFD -------"
+build_vnfd hydra_client_2tx_2rx
+
+echo "----- Build the RX1 NFD -------"
+#build_vnfd hydra_rx1
+
+echo "----- Build the RX2 NFD -------"
+#build_vnfd hydra_rx2
+
 
 echo "----- Building the BASIC NS -------"
 mkdir tmp_ns

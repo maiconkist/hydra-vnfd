@@ -1,33 +1,33 @@
 #!/usr/bin/env bash
 
 case "$1" in
-   "install")
+   "i")
       osm nsd-delete basic_nsd
       osm vnfd-delete hydra_aas_server
 
       osm vnfd-create hydra_server_vnf.tar.gz
       osm nsd-create  basic_ns.tar.gz
    ;;
-   "list")
+   "l")
       osm vnfd-list
       osm nsd-list
       osm ns-list
    ;;
-   "delete")
+   "d")
       osm nsd-delete basic_nsd
       osm vnfd-delete hydra_aas_server
    ;;
-   "ns-create")
-      ./osm install
+   "nc")
+      ./osm i
       osm ns-create --ns_name basic --nsd_name basic_nsd --vim_account wins_5g_v2
    ;;
-   "ns-delete")
+   "nd")
       osm ns-delete basic
    ;;
-   "juju-delete")
+   "jd")
       juju remove-machine --force $2
    ;;
    *)
-      echo "install|list|delete|ns-create|ns-delete|juju-delete"
+      echo "[i]nstall\r\n[l]ist\n[d]elete\n[nc]s-create\n[nd]s-delete\n[jd]uju-delete"
    ;;
 esac
