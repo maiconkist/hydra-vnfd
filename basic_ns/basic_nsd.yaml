@@ -15,9 +15,9 @@ nsd-catalog:
     - member-vnf-index: 1
       vnfd-id-ref: hydra_aas_server
     - member-vnf-index: 2
-      vnfd-id-ref: hydra_aas_server
-    - member-vnf-index: 3
-      vnfd-id-ref: hydra_aas_server
+      vnfd-id-ref: hydra_aas_client_2tx_2rx
+#    - member-vnf-index: 3
+#      vnfd-id-ref: hydra_aas_server
 
     vld:
     - id: hydra_aas_nsd_vld1
@@ -33,9 +33,9 @@ nsd-catalog:
       - member-vnf-index-ref: 2
         vnfd-connection-point-ref: ens1
         vnfd-id-ref: hydra_aas_vnfd
-      - member-vnf-index-ref: 3
-        vnfd-connection-point-ref: ens1
-        vnfd-id-ref: hydra_aas_vnfd
+#      - member-vnf-index-ref: 3
+#        vnfd-connection-point-ref: ens1
+#        vnfd-id-ref: hydra_aas_vnfd
     - id: hydra_aas_nsd_vld3
       name: hydra_aas_nsd_vld3
       short-name: hydra_aas_nsd_vld3
@@ -48,9 +48,9 @@ nsd-catalog:
       - member-vnf-index-ref: 2
         vnfd-connection-point-ref: ens5
         vnfd-id-ref: hydra_aas_vnfd
-      - member-vnf-index-ref: 3
-        vnfd-connection-point-ref: ens5
-        vnfd-id-ref: hydra_aas_vnfd
+#      - member-vnf-index-ref: 3
+#        vnfd-connection-point-ref: ens5
+#        vnfd-id-ref: hydra_aas_vnfd
     - id: hydra_aas_nsd_vld4
       name: hydra_aas_nsd_vld4
       short-name: hydra_aas_nsd_vld4
@@ -63,9 +63,9 @@ nsd-catalog:
       - member-vnf-index-ref: 2
         vnfd-connection-point-ref: ens4
         vnfd-id-ref: hydra_aas_vnfd
-      - member-vnf-index-ref: 3
-        vnfd-connection-point-ref: ens4
-        vnfd-id-ref: hydra_aas_vnfd
+#      - member-vnf-index-ref: 3
+#        vnfd-connection-point-ref: ens4
+#        vnfd-id-ref: hydra_aas_vnfd
     - id: hydra_aas_nsd_vld2
       name: hydra_aas_nsd_vld2
       short-name: hydra_aas_nsd_vld2
@@ -78,6 +78,6 @@ nsd-catalog:
       - member-vnf-index-ref: 2
         vnfd-connection-point-ref: ens7
         vnfd-id-ref: hydra_aas_vnfd
-      - member-vnf-index-ref: 3
-        vnfd-connection-point-ref: ens7
-        vnfd-id-ref: hydra_aas_vnfd
+#      - member-vnf-index-ref: 3
+#        vnfd-connection-point-ref: ens7
+#        vnfd-id-ref: hydra_aas_vnfd

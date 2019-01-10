@@ -4,8 +4,10 @@ case "$1" in
    "i")
       osm nsd-delete basic_nsd
       osm vnfd-delete hydra_aas_server
+      osm vnfd-delete hydra_aas_client_2tx_2rx
 
       osm vnfd-create hydra_server_vnf.tar.gz
+      osm vnfd-create hydra_client_2tx_2rx_vnf.tar.gz
       osm nsd-create  basic_ns.tar.gz
    ;;
    "l")
@@ -16,6 +18,7 @@ case "$1" in
    "d")
       osm nsd-delete basic_nsd
       osm vnfd-delete hydra_aas_server
+      osm vnfd-delete hydra_aas_client_2tx_2rx
    ;;
    "nc")
       ./osm i
@@ -28,6 +31,11 @@ case "$1" in
       juju remove-machine --force $2
    ;;
    *)
-      echo "[i]nstall\r\n[l]ist\n[d]elete\n[nc]s-create\n[nd]s-delete\n[jd]uju-delete"
+      echo "[i]nstall"
+      echo "[l]ist"
+      echo "[d]elete"
+      echo "[nc]s-create"
+      echo "[nd]s-delete"
+      echo "[jd]uju-delete"
    ;;
 esac
