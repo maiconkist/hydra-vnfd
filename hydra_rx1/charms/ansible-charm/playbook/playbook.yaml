@@ -52,6 +52,13 @@
 #       target: install
 #     become: yes
   
+    - name: "Create tap0 interface"
+      shell: |
+        sudo ip tuntap add mode tap dev tap0
+        sudo ip addr add 1.1.1.2/24 dev tap0
+        sudo ip link set dev tap0 up
+        sudo ifconfig tap0 1.1.1.2
+
     - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_vr1_rx.py
       file:
         path: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_vr1_rx.py
