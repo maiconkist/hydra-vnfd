@@ -1,26 +1,41 @@
 #!/usr/bin/env bash
 
 case "$1" in
-   "install")
-      osm nsd-delete hydra_aas_nsd
-      osm vnfd-delete hydra_aas_vnfd
+   "i")
+      osm nsd-delete basic_nsd
+      osm vnfd-delete hydra_aas_server
+      osm vnfd-delete hydra_aas_client_2tx_2rx
 
-      osm vnfd-create hydra_aas_vnf.tar.gz
-      osm nsd-create  hydra_aas_ns.tar.gz
+      osm vnfd-create hydra_server_vnf.tar.gz
+      osm vnfd-create hydra_client_2tx_2rx_vnf.tar.gz
+      osm nsd-create  basic_ns.tar.gz
    ;;
-   "list")
+   "l")
       osm vnfd-list
       osm nsd-list
       osm ns-list
    ;;
-   "delete")
-      osm nsd-delete hydra_aas_nsd
-      osm vnfd-delete hydra_aas_vnfd
+   "d")
+      osm nsd-delete basic_nsd
+      osm vnfd-delete hydra_aas_server
+      osm vnfd-delete hydra_aas_client_2tx_2rx
    ;;
-   "ns-create")
-      osm ns-create --ns_name test --nsd_name hydra_aas_nsd --vim_account wins_5g
+   "nc")
+      ./osm i
+      osm ns-create --ns_name basic --nsd_name basic_nsd --vim_account wins_5g_v2
    ;;
-   "ns-delete")
-      osm ns-delete test
+   "nd")
+      osm ns-delete basic
+   ;;
+   "jd")
+      juju remove-machine --force $2
+   ;;
+   *)
+      echo "[i]nstall"
+      echo "[l]ist"
+      echo "[d]elete"
+      echo "[nc]s-create"
+      echo "[nd]s-delete"
+      echo "[jd]uju-delete"
    ;;
 esac
