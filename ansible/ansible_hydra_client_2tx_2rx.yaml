@@ -1,6 +1,4 @@
 - hosts: transmitters
-  vars:
-    hydraServer: 192.168.5.54
   remote_user: ubuntu
   tasks:
 # All updates disabled by default. Uncomment all the lines below to have update version of dependencies and HyDRA
@@ -54,16 +52,24 @@
 #       target: install
 #     become: yes
   
-    - name: Replacing hydraServer IP
-      replace:
-        dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
-        regexp: "hydraServerIP"
-        replace: "{{ hydraServer }}"
-  
+    - name: "Create tap0 interface"
+      shell: |
+        sudo ip tuntap add mode tap dev tap0
+        sudo ip addr add 1.1.1.1/24 dev tap0
+        sudo ip link set dev tap0 up
+        sudo ifconfig tap0 1.1.1.1
+
+    - name: "Create tap1 interface"
+      shell: |
+        sudo ip tuntap add mode tap dev tap1
+        sudo ip addr add 2.2.2.1/24 dev tap1
+        sudo ip link set dev tap1 up
+        sudo ifconfig tap1 2.2.2.1
+
     - name: Replacing hydraClientIP
       replace:
         dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
-        regexp: "hydraClientIP"
+        regexp: "ansibleIP"
         replace: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
     - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py

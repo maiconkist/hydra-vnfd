@@ -5,9 +5,9 @@
 
 - Execute the following commands in shell.
 
-ansible-playbook -i hosts ansible_gr_tx1.yml
-ansible-playbook -i hosts ansible_gr_server.yml
-ansible-playbook -i hosts ansible_gr_rx1.yml
+ansible-playbook -i hosts ansible_gr_server.yaml
+ansible-playbook -i hosts ansible_gr_client_2tx_2rx.yaml
+ansible-playbook -i hosts ansible_gr_rx1.yaml
 
 # The last command you execute only if you have two VMs with USRPs for the reception.
 ansible-playbook -i hosts ansible_gr_rx2.yml

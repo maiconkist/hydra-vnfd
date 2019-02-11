@@ -55,7 +55,7 @@
     - name: Replace hydraServerIP by the correct address 
       replace:
         dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
-        regexp: 'hydraServerIP'
+        regexp: 'ansibleIP'
         replace: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
     - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
