@@ -1,8 +1,8 @@
 vnfd-catalog:
   vnfd:
-  - id: rx1
-    name: rx1
-    short-name: rx1
+  - id: hydra_rx1
+    name: hydra_rx1
+    short-name: hydra_rx1
     description: RX for VR1
 
     vendor: 5GINFIRE
@@ -13,7 +13,7 @@ vnfd-catalog:
 
     # Management interface
     mgmt-interface:
-      cp: ens1
+      cp: ens4
 
     connection-point:
       - name: ens1
@@ -27,11 +27,11 @@ vnfd-catalog:
 
     # Atleast one VDU need to be specified
     vdu:
-    - id: rx1-VM
-      name: rx1-VM
+    - id: hydra_rx1-VM
+      name: hydra_rx1-VM
       description: RX1 VM.
       # Image/checksum or image including the full path
-      image: hydra-aas-v2
+      image: hydra-aas
       count: 1
       guest-epa:
         cpu-pinning-policy: DEDICATED
@@ -81,38 +81,38 @@ vnfd-catalog:
           type: SR-IOV
 
     vnf-configuration:
-        juju:
-            charm: ansible-charm
-        service-primitive:
-        -   name: config
-            parameter:
-            -   name: ssh-hostname
-                data-type: STRING
-                mandatory: false
-                default-value: <rw_mgmt_ip>
-            -   name: ssh-username
-                data-type: STRING
-                mandatory: false
-                default-value: ubuntu
-            -   name: ssh-password
-                data-type: STRING
-                mandatory: false
-                default-value: 5ginfire
-            -   name: ssh-private-key
-                data-type: STRING
-                mandatory: false
-        -   name: ansible-playbook
-        initial-config-primitive:
-        -   name: config
-            parameter:
-            -   name: ssh-hostname
-                value: <rw_mgmt_ip>
-            -   name: ssh-username
-                value: ubuntu
-            -   name: ssh-password
-                value: 5ginfire
-            seq: '1'
-        #-   name: start
-        #    seq: '2'
-        -   name: ansible-playbook
-            seq: '2'
+      juju:
+        charm: ansible-charm-v2
+      service-primitive:
+      - name: config
+        parameter:
+        - name: ssh-hostname
+          data-type: STRING
+          mandatory: false
+          default-value: <rw_mgmt_ip>
+        - name: ssh-username
+          data-type: STRING
+          mandatory: false
+          default-value: ubuntu
+        - name: ssh-password
+          data-type: STRING
+          mandatory: false
+          default-value: 5ginfire
+        - name: ssh-private-key
+          data-type: STRING
+          mandatory: false
+      - name: ansible-playbook
+      initial-config-primitive:
+      - name: config
+        parameter:
+        - name: ssh-hostname
+          value: <rw_mgmt_ip>
+        - name: ssh-username
+          value: ubuntu
+        - name: ssh-password
+          value: 5ginfire
+        seq: '1'
+#       -   name: start
+#           seq: '2'
+      - name: ansible-playbook
+        seq: '2'

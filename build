@@ -6,13 +6,13 @@ rm -rf tmp_vnfd
 build_vnfd () {
 
 # Generate compiled charm
-pushd $1/charms/ansible-charm
-rm -rf builds/ deps/
-charm build
-popd
+#pushd $1/charms/ansible-charm
+#rm -rf builds/ deps/
+#charm build
+#popd
 
 # Copy compiled charm to vnfd/charms
-cp -R $1/charms/ansible-charm/builds/ansible-charm $1/vnfd/charms/
+#cp -R $1/charms/ansible-charm/builds/ansible-charm $1/vnfd/charms/
 
 # generate tar.gz
 mkdir tmp_$1
@@ -31,10 +31,10 @@ echo "----- Build the client NFD -------"
 build_vnfd hydra_client_2tx_2rx
 
 echo "----- Build the RX1 NFD -------"
-#build_vnfd hydra_rx1
+build_vnfd hydra_rx1
 
 echo "----- Build the RX2 NFD -------"
-#build_vnfd hydra_rx2
+build_vnfd hydra_rx2
 
 
 echo "----- Building the BASIC NS -------"

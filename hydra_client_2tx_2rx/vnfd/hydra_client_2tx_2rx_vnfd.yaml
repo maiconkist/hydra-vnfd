@@ -1,9 +1,9 @@
 vnfd-catalog:
   vnfd:
-  - id: hydra_aas_client_2tx_2rx
-    name: hydra_aas_client_2tx_2rx
-    short-name: hydra_aas_client_2tx_2rx
-    description: HyDRA-AAS Client with 2TXs and 2RXs
+  - id: hydra_client_2tx_2rx
+    name: hydra_client_2tx_2rx
+    short-name: hydra_client_2tx_2rx
+    description: HyDRA-AAS Client with 2TXs and 2RXs chains.
 
     vendor: 5GINFIRE
     version: '1.0'
@@ -13,7 +13,7 @@ vnfd-catalog:
 
     # Management interface
     mgmt-interface:
-      cp: ens1
+      cp: ens4
 
     connection-point:
       - name: ens1
@@ -22,16 +22,16 @@ vnfd-catalog:
         type: VPORT
       - name: ens5
         type: VPORT
-      - name: ens7
-        type: VPORT
+#     - name: ens7
+#       type: VPORT
 
     # Atleast one VDU need to be specified
     vdu:
-    - id: hydra_aas_client_2tx_2rx-VM
-      name: hydra_aas_client_2tx_2rx-VM
-      description: HYDRA VM.
+    - id: hydra_client_2tx_2rx-VM
+      name: hydra_client_2tx_2rx-VM
+      description: HYDRA-AAS Client VM.
       # Image/checksum or image including the full path
-      image: hydra-aas-v2
+      image: hydra-aas
       count: 1
       guest-epa:
         cpu-pinning-policy: DEDICATED
@@ -73,48 +73,46 @@ vnfd-catalog:
           bandwidth: '0'
           type: VIRTIO
           vpci: 0000:00:0a.0
-      - external-connection-point-ref: ens7
-        name: ens7
-        position: '2'
-        type: EXTERNAL
-        virtual-interface:
-          type: SR-IOV
+#     - external-connection-point-ref: ens7
+#       name: ens7
+#       position: '2'
+#       type: EXTERNAL
+#       virtual-interface:
+#         type: SR-IOV
 
-    # Uncomment and update below to enable juju
-    # charm configuration for the VNF
     vnf-configuration:
-        juju:
-            charm: ansible-charm
-        service-primitive:
-        -   name: config
-            parameter:
-            -   name: ssh-hostname
-                data-type: STRING
-                mandatory: false
-                default-value: <rw_mgmt_ip>
-            -   name: ssh-username
-                data-type: STRING
-                mandatory: false
-                default-value: ubuntu
-            -   name: ssh-password
-                data-type: STRING
-                mandatory: false
-                default-value: 5ginfire
-            -   name: ssh-private-key
-                data-type: STRING
-                mandatory: false
-        -   name: ansible-playbook
-        initial-config-primitive:
-        -   name: config
-            parameter:
-            -   name: ssh-hostname
-                value: <rw_mgmt_ip>
-            -   name: ssh-username
-                value: ubuntu
-            -   name: ssh-password
-                value: 5ginfire
-            seq: '1'
-        #-   name: start
-        #    seq: '2'
-        -   name: ansible-playbook
-            seq: '2'
+      juju:
+        charm: ansible-charm-v2
+      service-primitive:
+      - name: config
+        parameter:
+        - name: ssh-hostname
+          data-type: STRING
+          mandatory: false
+          default-value: <rw_mgmt_ip>
+        - name: ssh-username
+          data-type: STRING
+          mandatory: false
+          default-value: ubuntu
+        - name: ssh-password
+          data-type: STRING
+          mandatory: false
+          default-value: 5ginfire
+        - name: ssh-private-key
+          data-type: STRING
+          mandatory: false
+      - name: ansible-playbook
+      initial-config-primitive:
+      - name: config
+        parameter:
+        - name: ssh-hostname
+          value: <rw_mgmt_ip>
+        - name: ssh-username
+          value: ubuntu
+        - name: ssh-password
+          value: 5ginfire
+        seq: '1'
+#       -   name: start
+#           seq: '2'
+      - name: ansible-playbook
+        seq: '2'

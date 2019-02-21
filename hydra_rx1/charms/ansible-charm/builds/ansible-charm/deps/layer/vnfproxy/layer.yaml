@@ -1,6 +1,0 @@
-includes:
-    - layer:basic
-    - layer:sshproxy
-options:
-    basic:
-        use_venv: false
