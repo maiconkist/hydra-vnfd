@@ -4,7 +4,6 @@ rm *.tar.gz
 rm -rf tmp_vnfd
 
 build_vnfd () {
-
 # Generate compiled charm
 #pushd $1/charms/ansible-charm
 #rm -rf builds/ deps/

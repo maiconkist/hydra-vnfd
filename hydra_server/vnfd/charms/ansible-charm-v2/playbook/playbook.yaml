@@ -53,11 +53,11 @@
 #       target: install
 #     become: yes
 
-    - name: "Replace hydraServerIP by the correct address"
-      replace:
-        dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
-        regexp: "ansibleIP"
-        replace: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+#   - name: "Replace hydraServerIP by the correct address"
+#     replace:
+#       dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
+#       regexp: "ansibleIP"
+#       replace: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
     - name: "chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py"
       file:
@@ -66,4 +66,4 @@
         mode: a+x
 
     - name: "Start ansible_hydra_gr_server.py script. Log to /tmp/"
-      shell: "(nohup python /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py </dev/null > /tmp/ansible_hydra_gr_server.log 2>&1 &)"
+      shell: "(nohup python /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py --ansibleIPPort {{ hostvars[inventory_hostname]['ansible_ens4']['ipv4']['address'] }}:5000  </dev/null > /tmp/ansible_hydra_gr_server.log 2>&1 &)"

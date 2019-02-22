@@ -21,7 +21,7 @@
 #       version: bleeding
 #       update: true
 #       force: yes
-#   
+#
 #   - name: Make HyDRA Directory
 #     file:
 #       path: /home/ubuntu/gr-hydra/build
@@ -36,7 +36,7 @@
 #       chdir: /home/ubuntu/gr-hydra/build
 #       target: install
 #     become: yes
-#   
+#
 #   - name: Make GRC-HyDRA Directory
 #     file:
 #       path: /home/ubuntu/gr-hydra/grc_blocks/build
@@ -51,32 +51,24 @@
 #       chdir: /home/ubuntu/gr-hydra/grc_blocks/build
 #       target: install
 #     become: yes
-  
+
     - name: "Create tap0 interface"
       shell: |
         sudo ip tuntap add mode tap dev tap0
         sudo ip addr add 1.1.1.1/24 dev tap0
         sudo ip link set dev tap0 up
-        sudo ifconfig tap0 1.1.1.1
 
     - name: "Create tap1 interface"
       shell: |
         sudo ip tuntap add mode tap dev tap1
         sudo ip addr add 2.2.2.1/24 dev tap1
         sudo ip link set dev tap1 up
-        sudo ifconfig tap1 2.2.2.1
-
-    - name: Replacing hydraClientIP
-      replace:
-        dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
-        regexp: "ansibleIP"
-        replace: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
     - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
       file:
         path: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
         state: file
         mode: a+x
-      
+
     - name: Start ansible_hydra_gr_client_2tx_2rx.py script. Log to /tmp/
-      shell: "(nohup python /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py </dev/null > /tmp/ansible_hydra_gr_client_2tx_2rx.log 2>&1 &)"
+      shell: "(nohup python /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py --ansibleIP {{ hostvars[inventory_hostname]['ansible_ens4']['ipv4']['address'] }} </dev/null > /tmp/ansible_hydra_gr_client_2tx_2rx.log 2>&1 &)"

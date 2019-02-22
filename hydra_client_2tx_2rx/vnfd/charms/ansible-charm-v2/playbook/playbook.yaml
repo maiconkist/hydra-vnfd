@@ -63,11 +63,11 @@
         ip link set dev tap1 up
       become: yes
 
-    - name: Replacing hydraClientIP
-      replace:
-        dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
-        regexp: "ansibleIP"
-        replace: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+#   - name: Replacing hydraClientIP
+#     replace:
+#       dest: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
+#       regexp: "ansibleIP"
+#       replace: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
     - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py
       file:
@@ -76,4 +76,4 @@
         mode: a+x
 
     - name: Start ansible_hydra_gr_client_2tx_2rx.py script. Log to /tmp/
-      shell: "(nohup python /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py </dev/null > /tmp/ansible_hydra_gr_client_2tx_2rx.log 2>&1 &)"
+      shell: "(nohup python /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_client_2tx_2rx.py --ansibleIP {{ hostvars[inventory_hostname]['ansible_ens4']['ipv4']['address'] }}  </dev/null > /tmp/ansible_hydra_gr_client_2tx_2rx.log 2>&1 &)"
