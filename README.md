@@ -31,7 +31,13 @@ ping 2.2.2.1
 
 ## Troubleshooting
 
+Access our OpenStack server. 
+
+![You should see your VMs as shown below:](figure/vms_open_stack.png)
+
+
 Access each VM and kill the python process.
+
 
 
 * In machine "hydra-server" exec (replace 192.168.5.54 by the ip of iris2):
