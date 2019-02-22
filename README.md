@@ -4,7 +4,7 @@
 An example network with TWO slices.
 The scenario is as follows:
 
-[figures/hydra_slice_ping_scheme.png]
+(figure/hydra_slice_ping_scheme.png)
 
 
 - From "hydra_client_2tx_2rx" ping  the tap interfaces of "hydra_rx1" and "hydra_rx2" with IPs 1.1.1.2 and 2.2.2.2, respectively.
