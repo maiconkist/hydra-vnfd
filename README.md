@@ -2,9 +2,9 @@
 ## basic_nsd
 
 This scenario represents a case with 2 slices (in this case we dont have any performance difference between them).
+
+
 ![The scenario is as follows:](figure/hydra_slice_ping_scheme.png)
-
-
 
 
 ### Testing
@@ -21,11 +21,13 @@ ping 2.2.2.2
 - From "hydra_rx1" ping the tap0 interface of ""hydra_client_2tx_2rx", IP 1.1.1.1
 ```
 ping 1.1.1.1
+```
+
 
 - From "hydra_rx2" ping the tap1 interface of ""hydra_client_2tx_2rx", IP 2.2.2.1
 ```
 ping 2.2.2.1
-
+```
 
 ## Troubleshooting
 
