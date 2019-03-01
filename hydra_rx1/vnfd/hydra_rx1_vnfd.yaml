@@ -13,7 +13,8 @@ vnfd-catalog:
 
     # Management interface
     mgmt-interface:
-      cp: ens4
+#     cp: ens4 # management interface using OSM inside IRIS
+      cp: ens1 # management interface using OSM of 5GInFire
 
     connection-point:
       - name: ens1
@@ -25,25 +26,22 @@ vnfd-catalog:
       - name: ens7
         type: VPORT
 
-    # Atleast one VDU need to be specified
     vdu:
     - id: hydra_rx1-VM
       name: hydra_rx1-VM
       description: RX1 VM.
-      # Image/checksum or image including the full path
       image: hydra-aas
       count: 1
-      guest-epa:
-        cpu-pinning-policy: DEDICATED
-        cpu-thread-pinning-policy: PREFER
-        mempage-size: SMALL
-        numa-node-policy:
-          mem-policy: STRICT
-          node:
-          - id: '1'
-          node-cnt: '1'
-      # Flavour of the VM to be instantiated for the VDU
-      # flavor below can fit into m1.micro
+#     guest-epa:
+#       cpu-pinning-policy: DEDICATED
+#       cpu-thread-pinning-policy: PREFER
+#       mempage-size: SMALL
+#       numa-node-policy:
+#         mem-policy: STRICT
+#         node:
+#         - id: '1'
+#         node-cnt: '1'
+
       vm-flavor:
         memory-mb: 4096
         storage-gb: 20
@@ -112,7 +110,5 @@ vnfd-catalog:
         - name: ssh-password
           value: 5ginfire
         seq: '1'
-#       -   name: start
-#           seq: '2'
       - name: ansible-playbook
         seq: '2'

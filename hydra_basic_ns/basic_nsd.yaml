@@ -1,13 +1,12 @@
 nsd-catalog:
   nsd:
-  - id: basic_nsd
-    name: basic_nsd
-    short-name: basic_nsd
-    description: HyDRA AAS Example
+  - id: hydra_basic_nsd
+    name: hydra_basic_nsd
+    short-name: hydra_basic_nsd
+    description: Basic HyDRA-AAS Example
     vendor: 5GINFIRE
     version: '1.0'
 
-    # Place the logo as png in icons directory and provide the name here
     logo: 5GinFIRE.png
 
     # Specify the VNFDs that are part of this NSD
