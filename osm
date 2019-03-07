@@ -23,8 +23,8 @@ case "$1" in
    "nc")
       ./osm d
       ./osm i
-      osm ns-create --ns_name $2 --nsd_name hydra_basic_nsd --vim_account PREPRODUCTION
-      #osm ns-create --ns_name $2 --nsd_name basic_nsd --vim_account PRODUCTION_WINS_5G
+      #osm ns-create --ns_name $2 --nsd_name hydra_basic_nsd --vim_account PREPRODUCTION
+      osm ns-create --ns_name $2 --nsd_name hydra_basic_nsd --vim_account PRODUCTION_WINS_5G
    ;;
    "nd")
       osm ns-delete $2
