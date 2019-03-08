@@ -37,11 +37,11 @@ case "$1" in
       juju remove-application $2-e-vnfd
    ;;
    *)
-      echo "[i]nstall"
-      echo "[l]ist"
-      echo "[d]elete"
-      echo "[nc]s-create"
-      echo "[nd]s-delete"
-      echo "[jd]uju-delete"
+      echo "[i]nstall all VNFDs/NSDs. Example: $1 i"
+      echo "[l]ist. Example: $i l"
+      echo "[d]elete all NSDs/VNFDs. Example: $1 d"
+      echo "[nc]s-create a NS. Example: $1 nc <name of NS>"
+      echo "[nd]s-delete a NS. Example: $1 nd <name of NS>"
+      echo "[jd]uju-delete a juju-application (executes the ANSIBLE configuration). Example: $1 jd <name of application>"
    ;;
 esac
