@@ -1,5 +1,13 @@
 - hosts: servers
   tasks:
+    - name: Get source for GR-Hydra
+      git:
+        repo: "https://github.com/maiconkist/gr-hydra.git"
+        dest: /home/ubuntu/gr-hydra
+        version: bleeding
+        update: true
+        force: yes
+
     - name: chmod  /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
       file:
         path: /home/ubuntu/gr-hydra/grc_blocks/app/ansible_hydra_gr_server.py
@@ -11,6 +19,14 @@
 
 - hosts: transmitters
   tasks:
+    - name: Get source for GR-Hydra
+      git:
+        repo: "https://github.com/maiconkist/gr-hydra.git"
+        dest: /home/ubuntu/gr-hydra
+        version: bleeding
+        update: true
+        force: yes
+
     - name: "Create tap0 interface"
       shell: |
         ip tuntap add mode tap dev tap0
@@ -37,6 +53,14 @@
 
 - hosts: rx1
   tasks:
+    - name: Get source for GR-Hydra
+      git:
+        repo: "https://github.com/maiconkist/gr-hydra.git"
+        dest: /home/ubuntu/gr-hydra
+        version: bleeding
+        update: true
+        force: yes
+
     - name: "Create tap0 interface"
       shell: |
         ip tuntap add mode tap dev tap0
@@ -55,6 +79,14 @@
 
 - hosts: rx2
   tasks:
+    - name: Get source for GR-Hydra
+      git:
+        repo: "https://github.com/maiconkist/gr-hydra.git"
+        dest: /home/ubuntu/gr-hydra
+        version: bleeding
+        update: true
+        force: yes
+
     - name: "Create tap0 interface"
       shell: |
         ip tuntap add mode tap dev tap0
