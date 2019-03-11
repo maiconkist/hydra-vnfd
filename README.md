@@ -1,4 +1,30 @@
 
+## build
+
+The build script creates all the following VNFD and NS files:
+
+1. hydra_client_2tx_2rx_vnfd.tar.gz
+2. hydra_server_vnfd.tar.gz
+3. hydra_client_rx2_vnfd.tar.gz
+4. hydra_client_rx2_vnfd.tar.gz
+5. hydra_basic_nsd.tar.gz
+
+File 5 is a basic experiment consisting of a 2-EVI Base Station (hydra_client_2tx_rx and hydra_server) and 2 clients (rx1 and rx2, for the 1st and 2nd EVI, respectively).
+
+To execute the build script just type:
+
+```
+./build
+```
+
+## osm
+
+The osm script is a simple utilitaria to easen the task of installing, uninstalling, creating, and deleting VNDFs and NSDs.
+Type the following command to get a detailed usage of it:
+```
+./osm l
+```
+
 ## basic_nsd
 
 This scenario represents a case with 2 slices (in this case we dont have any performance difference between them).
