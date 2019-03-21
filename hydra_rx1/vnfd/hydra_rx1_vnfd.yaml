@@ -13,7 +13,6 @@ vnfd-catalog:
 
     # Management interface
     mgmt-interface:
-#     cp: ens4 # management interface using OSM inside IRIS
       cp: ens1 # management interface using OSM of 5GInFire
 
     connection-point:
